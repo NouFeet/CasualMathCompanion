@@ -17,3 +17,9 @@ private static final String fileName = "/Users/nikitakuprin/IdeaProjects/MathCom
 - Calculator
 - Arithmetic expressions solver
 - Adding, editing or deleting list of expressions
+
+### What was used?
+
+- Java 11(IO, lambda expressions etc.)
+- JavaFX 11
+- JUnit 5
