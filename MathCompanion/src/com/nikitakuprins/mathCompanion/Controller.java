@@ -164,6 +164,18 @@ public class Controller {
     @FXML
     private void handleFilterButton() {
         DataItem selectedItem = listView.getSelectionModel().getSelectedItem();
+        Predicate<DataItem> predicate = getFilterPredicate();
+
+        filteredList.setPredicate(predicate);
+
+        if (filteredList.contains(selectedItem)) {
+            listView.getSelectionModel().select(selectedItem);
+        } else {
+            listView.getSelectionModel().selectFirst();
+        }
+    }
+
+    private Predicate<DataItem> getFilterPredicate() {
         List<Predicate<DataItem>> excludePredicatesList = new ArrayList<>();
 
         for (ToggleButton toggleButton : buttonToFilter.keySet()) {
@@ -172,15 +184,12 @@ public class Controller {
             }
         }
 
-        Predicate<DataItem> predicate = Predicate.not(excludePredicatesList.stream().reduce(Predicate::or).orElse(wantAllItems));
-
-        filteredList.setPredicate(excludePredicatesList.size() == 4 || excludePredicatesList.size() == 0 ? wantAllItems : predicate);
-
-        if (filteredList.contains(selectedItem)) {
-            listView.getSelectionModel().select(selectedItem);
-        } else {
-            listView.getSelectionModel().selectFirst();
+        // If we selected all filters or deselected every filter, then show all expressions.
+        if (excludePredicatesList.size() == 4 || excludePredicatesList.size() == 0) {
+            return wantAllItems;
         }
+
+        return Predicate.not(excludePredicatesList.stream().reduce(Predicate::or).orElse(wantAllItems));
     }
 
     private enum ProcessOption {
@@ -246,7 +255,8 @@ public class Controller {
         alert.setContentText("Possible mistakes:\n" +
                 "1. The text is empty\n" +
                 "2. The text contains invalid symbols like: 'A','$','!'\n" +
-                "3. The text does not have enough spaces or they are redundant");
+                "3. The text contains has DECIMAL numbers but it should be INTEGERS.\n" +
+                "4. The text does not have enough spaces or they are redundant");
         alert.show();
     }
 
