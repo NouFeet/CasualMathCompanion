@@ -233,19 +233,22 @@ public class Controller {
         Optional<ButtonType> result = dialog.showAndWait();
 
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
-            DataItem newItem = controller.processItem();
-
-            if (newItem == null) {
-                createErrorAlert();
-            } else {
-                if (processOption.equals(ProcessOption.NEW)) {
-                    DataSource.getInstance().addItem(newItem);
-                } else if (processOption.equals(ProcessOption.EDIT)) {
-                    DataSource.getInstance().editItem(selectedItem, newItem);
-                }
-                listView.getSelectionModel().selectFirst();
-            }
+            DataItem newItem = controller.createItem();
+            processItem(newItem, selectedItem, processOption);
         }
+    }
+
+    private void processItem(DataItem newItem, DataItem selectedItem, ProcessOption processOption) {
+        if (newItem == null) {
+            createErrorAlert();
+        }
+
+        if (processOption.equals(ProcessOption.NEW)) {
+            DataSource.getInstance().addItem(newItem);
+        } else if (processOption.equals(ProcessOption.EDIT)) {
+            DataSource.getInstance().editItem(selectedItem, newItem);
+        }
+        listView.getSelectionModel().selectFirst();
     }
 
     private void createErrorAlert() {
