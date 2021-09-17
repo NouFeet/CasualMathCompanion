@@ -244,6 +244,7 @@ public class Controller {
     private void processItem(DataItem newItem, DataItem selectedItem, ProcessOption processOption) {
         if (newItem == null) {
             createErrorAlert();
+            return;
         }
 
         if (processOption.equals(ProcessOption.NEW)) {
