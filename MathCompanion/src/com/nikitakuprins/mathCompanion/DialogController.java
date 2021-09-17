@@ -34,7 +34,7 @@ public class DialogController {
         this.expressionField.setText(str);
     }
 
-    public DataItem processItem() {
+    public DataItem createItem() {
         String expression = expressionField.getText();
         if (Calculations.isValidFormat(expression)) {
             BigDecimal result = Calculations.calculate(expression);
