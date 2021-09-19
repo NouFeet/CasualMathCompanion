@@ -1,5 +1,9 @@
 # CasualMathCompanion
 
+### Next versions of project
+
+[AdvancedMathCompanion](https://github.com/NouFeet/AdvancedMathCompanion)
+
 ### How to run?
 
 - First, open MathCompanion file in your IDE.
