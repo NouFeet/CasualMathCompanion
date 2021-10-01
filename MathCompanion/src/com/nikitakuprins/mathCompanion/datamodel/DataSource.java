@@ -23,7 +23,7 @@ import java.io.*;
 public class DataSource {
 
     private static final DataSource instance = new DataSource();
-    private static final String fileName = "/Users/nikitakuprin/IdeaProjects/MathCompanion/src/data.txt"; // Define path to data.txt
+    private static final String fileName = "src/data.txt"; // Define path to data.txt
 
     private ObservableList<DataItem> dataItems;
 
