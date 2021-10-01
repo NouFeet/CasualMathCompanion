@@ -270,17 +270,19 @@ public class Controller {
     @FXML
     private void deleteItem() {
         DataItem item = listView.getSelectionModel().getSelectedItem();
-        if (item != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.initOwner(borderPane.getScene().getWindow());
-            alert.setTitle("Delete Todo Item");
-            alert.setHeaderText("Delete item: " + item.getExpression());
-            alert.setContentText("Are you sure?  Press OK to confirm, or cancel to Back out.");
-            Optional<ButtonType> result = alert.showAndWait();
+        if (item == null) {
+            return;
+        }
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(borderPane.getScene().getWindow());
+        alert.setTitle("Delete Todo Item");
+        alert.setHeaderText("Delete item: " + item.getExpression());
+        alert.setContentText("Are you sure?  Press OK to confirm, or cancel to Back out.");
+        Optional<ButtonType> result = alert.showAndWait();
 
-            if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                DataSource.getInstance().removeItem(item);
-            }
+        if (result.isPresent() && (result.get() == ButtonType.OK)) {
+            DataSource.getInstance().removeItem(item);
         }
     }
 
